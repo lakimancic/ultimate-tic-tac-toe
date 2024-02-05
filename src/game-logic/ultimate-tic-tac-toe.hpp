@@ -30,6 +30,7 @@ public:
     {
         return this->onMove;
     }
+    std::vector<Move> GetAvailableMoves() const;
     bool PlayMove(int y, int x);
 
     friend std::ostream &operator<<(std::ostream &out, const UltimateTicTacToe &ttt);

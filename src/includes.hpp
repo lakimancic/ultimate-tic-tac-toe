@@ -6,5 +6,6 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 #endif

@@ -43,6 +43,26 @@ Cell UltimateTicTacToe::CheckWin() const
     return Cell::EMPTY;
 }
 
+std::vector<Move> UltimateTicTacToe::GetAvailableMoves() const
+{
+    if (this->cx != -1 && this->cy != -1)
+    {
+        std::vector<Move> moves = this->board[this->cy][this->cx].GetAvailableMoves();
+        for (Move &move : moves)
+        {
+            move.x += this->cx * 3;
+            move.y += this->cy * 3;
+        }
+        return moves;
+    }
+    std::vector<Move> moves;
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+            if (this->IsValidMove(i, j))
+                moves.push_back({i, j});
+    return moves;
+}
+
 bool UltimateTicTacToe::PlayMove(int y, int x)
 {
     if (!this->IsValidMove(y, x))
@@ -61,6 +81,16 @@ bool UltimateTicTacToe::PlayMove(int y, int x)
     }
     else
         this->isEnd = true;
+    // Check Draw
+    bool draw = true;
+    for (int i = 0; i < 3 && draw; i++)
+        for (int j = 0; j < 3 && draw; j++)
+            draw = draw && this->board[i][j].isEnd && this->board[i][j].onMove == Cell::EMPTY;
+    if (draw && !this->isEnd)
+    {
+        this->onMove = Cell::EMPTY;
+        this->isEnd = true;
+    }
     return true;
 }
 
@@ -195,5 +225,6 @@ std::ostream &operator<<(std::ostream &out, const UltimateTicTacToe &ttt)
             out << "\n";
         }
     }
+    out << ttt.onMove << "\n";
     return out;
 }

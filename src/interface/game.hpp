@@ -9,6 +9,8 @@ class Game
 private:
     void twoPlayers() const;
     void singlePlayer() const;
+    void ultimateSinglePlayer() const;
+    void ultimateTwoPlayers() const;
 
 public:
     Game();

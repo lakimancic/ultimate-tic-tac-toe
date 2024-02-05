@@ -19,6 +19,8 @@ bool TicTacToe::IsValidMove(int y, int x) const
         return false;
     if (x < 0 || x >= 3)
         return false;
+    if (this->isEnd)
+        return false;
     return this->board[y][x] == Cell::EMPTY;
 }
 
@@ -70,14 +72,14 @@ std::vector<Move> TicTacToe::GetAvailableMoves() const
     std::vector<Move> moves;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            if (this->board[i][j] == Cell::EMPTY)
+            if (this->board[i][j] == Cell::EMPTY && !this->isEnd)
                 moves.push_back(Move{i, j});
     return moves;
 }
 
 bool TicTacToe::operator==(const TicTacToe &obj) const
 {
-    return this->isEnd && obj.isEnd && this->onMove == obj.onMove;
+    return this->isEnd && obj.isEnd && this->onMove == obj.onMove && this->onMove != Cell::EMPTY;
 }
 
 std::ostream &operator<<(std::ostream &out, const TicTacToe &ttt)

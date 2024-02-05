@@ -87,6 +87,44 @@ void Game::singlePlayer() const
     cin.get();
 }
 
+void Game::ultimateSinglePlayer() const
+{
+}
+
+void Game::ultimateTwoPlayers() const
+{
+    int turn = 0, mx, my;
+    bool valid;
+    UltimateTicTacToe game;
+    game.SetOnMove(Cell::X);
+    while (true)
+    {
+        cout << ColorEffect::CLEAR;
+        cout << game << endl;
+        cout << ColorEffect::RESET;
+        if (game.IsEnded())
+            break;
+        cout << "Player " << (turn + 1) << " is on move!\n\n";
+        valid = true;
+        do
+        {
+            if (!valid)
+                cout << "Invalid move!\n\n";
+            cout << "Enter move (row, col): ";
+            cin >> my >> mx;
+            valid = false;
+        } while (!game.PlayMove(my, mx));
+        if (!game.IsEnded())
+            turn = !turn;
+    }
+    if (game.GetOnMove() != Cell::EMPTY)
+        cout << "Player " << (turn + 1) << " is winner!\n";
+    else
+        cout << "It's a draw!\n";
+    cin.ignore();
+    cin.get();
+}
+
 Game::Game()
 {
 }
@@ -114,6 +152,9 @@ void Game::Loop()
             break;
         case 2:
             this->singlePlayer();
+            break;
+        case 3:
+            this->ultimateTwoPlayers();
             break;
         default:
             cout << "Invalid option!\n";
