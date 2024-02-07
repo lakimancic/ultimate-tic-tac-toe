@@ -2,7 +2,6 @@
 #define MONTE_CARLO_HPP
 
 #include "../games/game.hpp"
-#include "../games/tictactoe.hpp"
 
 template <class T>
 class MCTS_Node
@@ -18,6 +17,7 @@ private:
     MCTS_Node *parent;
 
 public:
+    MCTS_Node();
     MCTS_Node(T move);
     virtual ~MCTS_Node();
 
@@ -51,6 +51,11 @@ public:
 
     void debug();
 };
+
+template <class T>
+inline MCTS_Node<T>::MCTS_Node() : value(0), vis(0), parent(nullptr)
+{
+}
 
 template <class T>
 inline MCTS_Node<T>::MCTS_Node(T move) : value(0), vis(0), move(move), parent(nullptr)
@@ -101,7 +106,7 @@ inline MCTS_Node<T> *MCTS<T>::expansion(MCTS_Node<T> *node)
     std::vector<T> moves = this->tempState->GetAvailableMoves();
     if (moves.size() == 0)
         return node;
-    for (Move &move : moves)
+    for (T &move : moves)
         node->AddChild(new MCTS_Node<T>(move));
     this->tempState->PlayMove(moves[0]);
     return node->childs[0];
@@ -158,7 +163,7 @@ template <class T>
 inline T MCTS<T>::GetBestMove(int iterations)
 {
     delete this->root;
-    this->root = new MCTS_Node<T>({-1, -1});
+    this->root = new MCTS_Node<T>;
 
     for (int i = 0; i < iterations; i++)
         this->iteration();

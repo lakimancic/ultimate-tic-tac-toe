@@ -25,4 +25,14 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const Color &color);
 };
 
+class BgColor
+{
+    char r, g, b;
+
+public:
+    BgColor(char r, char g, char b);
+
+    friend std::ostream &operator<<(std::ostream &out, const BgColor &color);
+};
+
 #endif

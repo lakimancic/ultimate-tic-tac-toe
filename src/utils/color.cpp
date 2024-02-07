@@ -15,3 +15,12 @@ std::ostream &operator<<(std::ostream &out, const Color &color)
 {
     return out << "\x1b[38;2;" << (unsigned)color.r << ";" << (unsigned)color.g << ";" << (unsigned)color.b << "m";
 }
+
+BgColor::BgColor(char r, char g, char b) : r(r), g(g), b(b)
+{
+}
+
+std::ostream &operator<<(std::ostream &out, const BgColor &color)
+{
+    return out << "\x1b[48;2;" << (unsigned)color.r << ";" << (unsigned)color.g << ";" << (unsigned)color.b << "m";
+}

@@ -78,7 +78,7 @@ inline void Interface<T>::singlePlayer()
         cout << ColorEffect::CLEAR;
         if (this->game->GetOnMove() == PlayerState::ENEMY)
         {
-            move = this->mcts->GetBestMove();
+            move = this->mcts->GetBestMove(20000);
         }
         else
         {
