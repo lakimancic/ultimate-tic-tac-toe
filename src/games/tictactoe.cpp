@@ -117,6 +117,11 @@ void TicTacToe::Reset()
             this->board[i][j] = PlayerState::NONE;
 }
 
+PlayerState TicTacToe::AtBoard(int i, int j) const
+{
+    return this->board[i][j];
+}
+
 std::istream &operator>>(std::istream &in, Move &move)
 {
     return in >> move.y >> move.x;

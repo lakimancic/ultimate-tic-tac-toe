@@ -12,15 +12,21 @@ private:
     char *gameName;
     Game<T> *game;
     MCTS<T> *mcts;
+    int iterations;
+
+    void twoPlayers();
+    void singlePlayer();
 
 public:
     Interface(Game<T> *game, const char *gameName);
     virtual ~Interface();
 
-    void twoPlayers();
-    void singlePlayer();
-
     void Play();
+
+    void SetIterations(int iters)
+    {
+        this->iterations = iters;
+    }
 };
 
 template <class T>
@@ -78,7 +84,7 @@ inline void Interface<T>::singlePlayer()
         cout << ColorEffect::CLEAR;
         if (this->game->GetOnMove() == PlayerState::ENEMY)
         {
-            move = this->mcts->GetBestMove(20000);
+            move = this->mcts->GetBestMove(this->iterations);
         }
         else
         {
@@ -148,6 +154,7 @@ inline Interface<T>::Interface(Game<T> *game, const char *gameName)
     this->mcts = new MCTS<T>(game);
     this->gameName = new char[strlen(gameName) + 1];
     strcpy(this->gameName, gameName);
+    this->iterations = 1000;
 }
 
 template <class T>

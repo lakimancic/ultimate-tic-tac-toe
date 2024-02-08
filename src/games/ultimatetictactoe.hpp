@@ -1,23 +1,18 @@
-#ifndef TICTACTOE_HPP
-#define TICTACTOE_HPP
+#ifndef ULTIMATETICTACTOE_HPP
+#define ULTIMATETICTACTOE_HPP
 
-#include "game.hpp"
+#include "tictactoe.hpp"
+#include "../utils/color.hpp"
 
-typedef struct
-{
-    int y, x;
-} Move;
-
-std::istream &operator>>(std::istream &in, Move &move);
-
-class TicTacToe : public Game<Move>
+class UltimateTicTacToe : public Game<Move>
 {
 private:
-    PlayerState board[3][3];
+    TicTacToe board[3][3];
+    int cx, cy;
 
 public:
-    TicTacToe();
-    virtual ~TicTacToe();
+    UltimateTicTacToe();
+    virtual ~UltimateTicTacToe();
 
     virtual bool IsValidMove(const Move &move) const override;
     virtual bool PlayMove(const Move &move) override;
@@ -27,8 +22,6 @@ public:
     virtual Game<Move> *Clone() const override;
     virtual void CheckEnd() override;
     virtual void Reset() override;
-
-    PlayerState AtBoard(int i, int j) const;
 };
 
 #endif
