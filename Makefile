@@ -1,14 +1,12 @@
 SRC_DIR         := src
 OBJ_DIR         := obj
-# INCLUDE_DIR   := include
-# LIB_DIR       := lib
 BIN_DIR         := bin
 TARGET          := tic-tac-toe
 
 ifeq ($(OS),Windows_NT)
-SRCS := $(shell DIR *.cpp /S /B)
+SRCS := $(shell (if not exist obj mkdir obj) && (if not exist bin mkdir bin) && DIR *.cpp /S /B)
 else
-SRCS := $(shell cd obj && find ../ -name *.cpp)
+SRCS := $(shell mkdir -p obj bin && cd obj && find ../ -name *.cpp)
 endif
 
 CXX                     := g++
